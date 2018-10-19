@@ -1,0 +1,9 @@
+{
+	"rest": {
+		"port": 8080
+	},
+	"ssl": {
+		"cert": "C:\\Users\\schwa\\.ssl\\localhost.crt",
+		"key": "C:\\Users\\schwa\\.ssl\\localhost.key"
+	}
+}
