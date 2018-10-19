@@ -1,42 +1,8 @@
 const websocket = require('websocket');
-const crypto = require('crypto');
 const locations = {};
-const locationData = require('../../../data/locations');
-
-locationData.forEach(location => {
-	locations[location.id] = {
-		...location,
-		admins: [],
-		driver: []
-	};
-});
-
-function registerDriver(location, connection) {
-	locations[location].driver.push(connection);
-	console.log(`User with id ${connection._id} connected as driver`);
-}
-
-function registerLocation(location) {
-	locations[location].driver.push(connection);
-	console.log(`User with id ${connection._id} connected as admin`);
-}
-
-function unregister(id) {
-	for(let i in locations){
-		for(let j in locations.driver){
-			if(locations[i].driver[j]._id === id){
-				locations[i].driver.splice(j, 1);
-			}
-		}
-
-		for (let j in locations.admin){
-			if(locations[i].admins[j]._id === id){
-				locations[i].admins.splice(j, 1);
-			}
-		}
-	}
-	console.log(`User with id ${id} unregistered`);
-}
+const Driver = require('./lib/Driver');
+const LocationAdmin = require('./lib/LocationAdmin');
+const store = require('./lib/LocationAdmin');
 
 function run(httpServer) {
 	const server = new websocket.server({
@@ -47,7 +13,6 @@ function run(httpServer) {
 		console.log('New connection from origin ' + request.origin);
 
 		const connection = request.accept();
-		connection._id = crypto.randomBytes(20).toString('hex');
 
 		console.log('Connection accepted');
 
@@ -56,21 +21,21 @@ function run(httpServer) {
 				const data = JSON.parse(message.utf8Data);
 
 				if(data.type === 'register:driver'){
-					return registerDriver(data.payload, connection);
+					return store.registerDriver(new Driver(connection, data.payload));
 				}
 
 				if(data.type === 'register:location'){
-					return registerLocation(data.payload, connection);
+					return store.registerLocation(new LocationAdmin(connection, data.payload));
 				}
 
 				if(data.type === 'unregister'){
-					return unregister(connection._id);
+					return store.unregisterAll(connection._id);
 				}
 			}
 		});
 
 		connection.on('close', () => {
-			return unregister(connection._id);
+			return store.unregisterAll(connection._id);
 		});
 	});
 }

@@ -28,7 +28,7 @@ server.listen(config.rest, err => {
 		console.log('REST: Error starting webserver');
 		return;
 	}
-	console.log('REST: webserver started successfully');
+	console.log('REST: webserver started successfully', config.rest);
 
 	socket.run(server);
 });

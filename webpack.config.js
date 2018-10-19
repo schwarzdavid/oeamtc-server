@@ -1,7 +1,6 @@
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const root = path.resolve(__dirname, './');
@@ -121,10 +120,6 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'client.bundle.css'
             //filename: 'client-[hash:7].bundle.css'
-        }),
-        new ServiceWorkerWebpackPlugin({
-            entry: path.resolve(clientSrcRoot, 'service-worker.ts'),
-            filename: 'service-worker.js'
         })
     ]
 };
