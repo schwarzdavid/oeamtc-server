@@ -3,6 +3,7 @@ import Vuetify from 'vuetify';
 import App from './components/App.vue';
 import router from './router/index';
 import store from './store';
+import {Socket} from './plugins/socket';
 
 Vue.use(Vuetify, {
 	iconfont: 'mdi',
@@ -10,6 +11,8 @@ Vue.use(Vuetify, {
 
 	}
 });
+
+Vue.use(Socket);
 
 new Vue({
 	el: '#app',

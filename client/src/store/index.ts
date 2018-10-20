@@ -11,3 +11,5 @@ const state: IRootState = {
 const modules: ModuleTree<IRootState> = {
 	
 };
+
+export default new Vuex.Store<IRootState>({state, modules});

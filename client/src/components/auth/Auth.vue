@@ -9,7 +9,7 @@
 						<v-card-text class="text-xs-center">
 
 							<!-- CARD CONTENT -->
-							<h1>Select your role</h1>
+							<h1 class="mt-5">Select your role</h1>
 
 							<v-layout align-center row justify-space-around fill-height class="my-5">
 								<v-btn color="info" large>Driver</v-btn>
