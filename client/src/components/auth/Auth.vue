@@ -12,8 +12,12 @@
 							<h1 class="mt-5">Select your role</h1>
 
 							<v-layout align-center row justify-space-around fill-height class="my-5">
-								<v-btn color="info" large>Driver</v-btn>
-								<v-btn color="info" large>Admin</v-btn>
+								<router-link to="/driver">
+									<v-btn color="info" large>Driver</v-btn>
+								</router-link>
+								<router-link to="/admin">
+									<v-btn color="info" large>Admin</v-btn>
+								</router-link>
 							</v-layout>
 							<!-- / CARD CONTENT -->
 
@@ -32,6 +36,18 @@
 
 	</v-content>
 </template>
+
+<script lang="ts">
+	import Vue from 'vue';
+
+	export default Vue.extend({
+		created() {
+			this.$onSocket('open', () => {
+				this.socketOpen = true;
+			});
+		}
+	});
+</script>
 
 <style lang="scss" scoped>
 	.withBg {

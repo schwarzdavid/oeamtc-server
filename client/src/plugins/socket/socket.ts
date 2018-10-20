@@ -49,8 +49,6 @@ function on(type: string, callback: Callback) {
 }
 
 function off(type: string, callback: Callback) {
-	console.log('unregister ' + type);
-
 	if(!Array.isArray(listener[type])){
 		return;
 	}
@@ -68,8 +66,6 @@ function emit(type: string, payload: any) {
 }
 
 function trigger(type: string, payload?: any){
-	console.log(type, listener);
-
 	if(!Array.isArray(listener[type])){
 		return;
 	}

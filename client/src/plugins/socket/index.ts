@@ -9,7 +9,6 @@ const Socket = {
 		};
 
 		Vue.prototype.$offSocket = function (type: string, callback: SocketCallback) {
-			console.log(this.$_listener);
 			this.$data.$_listener.splice(this.$data.$_listener.findIndex(ln => ln === {type, callback}), 1);
 			socket.off(type, callback);
 		};

@@ -1,4 +1,4 @@
-const locationData = require('../../../data/locations');
+const locationData = require('../../../../data/locations');
 const locations = {};
 
 locationData.forEach(location => {
@@ -35,6 +35,7 @@ function registerDriver(driver) {
 	locations[driver.location].driver.push(driver);
 
 	driver.connection.on('message', driver.handler);
+	sendAdmins('driverRegistered');
 
 	console.log(`User with id ${connection._id} connected as driver`);
 }
@@ -57,9 +58,9 @@ function unregister(id, connections) {
 }
 
 function unregisterAll(id) {
-	for(let location of locations){
-		unregister(id, location.admins);
-		unregister(id, location.driver);
+	for(let i in locations){
+		unregister(id, locations[i].admins);
+		unregister(id, locations[i].driver);
 	}
 	console.log(`User with id ${id} unregistered`);
 }
@@ -69,5 +70,6 @@ module.exports = {
 	registerDriver,
 	registerLocation,
 	sendDriver,
-	sendAdmins
-}
+	sendAdmins,
+	unregisterAll
+};

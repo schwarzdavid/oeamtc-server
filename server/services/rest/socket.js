@@ -1,8 +1,7 @@
 const websocket = require('websocket');
-const locations = {};
 const Driver = require('./lib/Driver');
 const LocationAdmin = require('./lib/LocationAdmin');
-const store = require('./lib/LocationAdmin');
+const store = require('./lib/SocketStore');
 
 function run(httpServer) {
 	const server = new websocket.server({
@@ -24,18 +23,22 @@ function run(httpServer) {
 					return store.registerDriver(new Driver(connection, data.payload));
 				}
 
-				if(data.type === 'register:location'){
+				if(data.type === 'register:admin'){
 					return store.registerLocation(new LocationAdmin(connection, data.payload));
 				}
 
 				if(data.type === 'unregister'){
-					return store.unregisterAll(connection._id);
+					if(connection._id) {
+						return store.unregisterAll(connection._id);
+					}
 				}
 			}
 		});
 
 		connection.on('close', () => {
-			return store.unregisterAll(connection._id);
+			if(connection._id) {
+				return store.unregisterAll(connection._id);
+			}
 		});
 	});
 }

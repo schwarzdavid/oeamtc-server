@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
+import AdminComponent from '../components/admin/Admin.vue';
 import AuthComponent from '../components/auth/Auth.vue';
 
 Vue.use(VueRouter);
@@ -12,6 +13,11 @@ const router = new VueRouter({
 			path: '/',
 			name: 'auth',
 			component: AuthComponent
+		},
+		{
+			path: '/admin',
+			name: 'admin',
+			component: AdminComponent
 		}
 	]
 });
