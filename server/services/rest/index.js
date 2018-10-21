@@ -18,9 +18,15 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/api', apiRouter);
 
-app.use(express.static(path.resolve(__dirname, '../../../client/dist')));
-app.get('*', (req, res) => {
-	return res.sendFile(path.resolve(__dirname, '../../../client/dist/index.html'));
+app.use('/admin', express.static(path.resolve(__dirname, '../../../client/admin/dist')));
+app.use('/driver', express.static(path.resolve(__dirname, '../../../client/driver/dist')));
+
+app.get('/admin/*', (req, res) => {
+	return res.sendFile(path.resolve(__dirname, '../../../client/admin/dist/index.html'));
+});
+
+app.get('/driver/*', (req, res) => {
+	return res.sendFile(path.resolve(__dirname, '../../../client/driver/dist/index.html'));
 });
 
 server.listen(config.rest, err => {

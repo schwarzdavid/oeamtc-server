@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import AdminComponent from '../components/admin/Admin.vue';
+import AdminComponent from '../components/dashboard/Admin.vue';
 import AuthComponent from '../components/auth/Auth.vue';
 
 Vue.use(VueRouter);

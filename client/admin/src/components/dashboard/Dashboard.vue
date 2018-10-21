@@ -9,7 +9,9 @@
 
 	export default Vue.extend({
 		created(){
-			this.$emitSocket('register:admin');
+			this.$emitSocket('register:admin', {
+				name: 'Demofahrzeug'
+			});
 		}
 	});
 </script>

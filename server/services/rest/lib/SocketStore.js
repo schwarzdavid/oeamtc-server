@@ -35,12 +35,16 @@ function registerDriver(driver) {
 	locations[driver.location].driver.push(driver);
 
 	driver.connection.on('message', driver.handler);
-	sendAdmins('driverRegistered');
+	driver.connection.on('close', () => {
+		sendAdmins('driver:removed');
+	});
+
+	sendAdmins('driver:registered');
 
 	console.log(`User with id ${connection._id} connected as driver`);
 }
 
-function registerLocation(admin) {
+function registerAdmin(admin) {
 	locations[admin.location].admins.push(admin);
 
 	admin.connection.on('message', admin.handler);
@@ -68,7 +72,7 @@ function unregisterAll(id) {
 module.exports = {
 	locations,
 	registerDriver,
-	registerLocation,
+	registerAdmin,
 	sendDriver,
 	sendAdmins,
 	unregisterAll

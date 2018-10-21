@@ -24,7 +24,7 @@ function run(httpServer) {
 				}
 
 				if(data.type === 'register:admin'){
-					return store.registerLocation(new LocationAdmin(connection, data.payload));
+					return store.registerAdmin(new LocationAdmin(connection, data.payload));
 				}
 
 				if(data.type === 'unregister'){
@@ -32,12 +32,6 @@ function run(httpServer) {
 						return store.unregisterAll(connection._id);
 					}
 				}
-			}
-		});
-
-		connection.on('close', () => {
-			if(connection._id) {
-				return store.unregisterAll(connection._id);
 			}
 		});
 	});
