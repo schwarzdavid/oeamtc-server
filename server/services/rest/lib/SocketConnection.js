@@ -3,7 +3,7 @@ const crypto = require('crypto');
 class SocketConnection {
 	constructor(connection, config){
 		this._connection = connection;
-		this._id = crypto.randomBytes(20).toString('hex');
+		this._id = config.id;
 		this._name = config.name;
 		this._location = config.location;
 
@@ -12,6 +12,11 @@ class SocketConnection {
 
 	handler(message){
 		throw new Error('Implement this in sibling class');
+	}
+
+	send(type, payload){
+		const data = JSON.stringify({type, payload});
+		this._connection.send(data);
 	}
 
 	get location(){

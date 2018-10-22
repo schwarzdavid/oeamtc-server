@@ -6,19 +6,34 @@
 			<v-layout align-center justify-center>
 				<v-flex xs12 class="withMaxWidth">
 					<v-card class="elevation-5">
+						<v-img src="~Assets/login_header.png" alt="ÖAMTC Ideathon" draggable="false"></v-img>
+
 						<v-card-text class="text-xs-center">
 
-							<!-- CARD CONTENT -->
-							<h1 class="mt-5">Select your role</h1>
+							<h1 class="display-1 font-weight-light mt-2 mb-4">Driver Login</h1>
 
-							<v-layout align-center row justify-space-around fill-height class="my-5">
-								<router-link to="/driver">
-									<v-btn color="info" large>Driver</v-btn>
-								</router-link>
-								<router-link to="/admin">
-									<v-btn color="info" large>Admin</v-btn>
-								</router-link>
-							</v-layout>
+							<!-- CARD CONTENT -->
+							<v-form v-model="formValid" @submit.prevent="onSubmit">
+								<v-container>
+
+									<!-- EMAIL TEXT FIELD -->
+									<v-text-field prepend-icon="mdi-email-outline" name="email" label="E-Mail Adresse"
+									              type="email" v-model="user.email" autocomplete="email"
+									              :disabled="true"></v-text-field>
+									<!-- / EMAIL TEXT FIELD -->
+
+									<!-- PASSWORD -->
+									<v-text-field prepend-icon="mdi-key-variant" name="password" label="Passwort"
+									              type="password" autocomplete="password"
+									              value="12345678" :disabled="true"></v-text-field>
+									<!-- / PASSWORD -->
+
+									<!-- LOGIN BUTTON -->
+									<v-btn :disabled="!formValid" type="submit" color="primary">Anmelden</v-btn>
+									<!-- / LOGIN BUTTON -->
+
+								</v-container>
+							</v-form>
 							<!-- / CARD CONTENT -->
 
 						</v-card-text>
@@ -41,10 +56,23 @@
 	import Vue from 'vue';
 
 	export default Vue.extend({
-		created() {
-			this.$onSocket('open', () => {
-				this.socketOpen = true;
-			});
+		data() {
+			return {
+				formValid: false,
+				user: {
+					email: 'driver@oeamtc.at'
+				}
+			};
+		},
+
+		methods: {
+			async onSubmit(){
+				await this.$store.dispatch('user/login', {
+					email: this.user.email
+				});
+
+				this.$router.push('/');
+			}
 		}
 	});
 </script>

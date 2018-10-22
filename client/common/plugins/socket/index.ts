@@ -6,6 +6,10 @@ const Socket = {
 		Vue.prototype.$onSocket = function (type: string, callback: SocketCallback) {
 			this.$data.$_listener.push({type, callback});
 			socket.on(type, callback);
+
+			if(socket.isOpen()){
+				callback();
+			}
 		};
 
 		Vue.prototype.$offSocket = function (type: string, callback: SocketCallback) {

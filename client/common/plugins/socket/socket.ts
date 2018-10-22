@@ -75,8 +75,12 @@ function trigger(type: string, payload?: any){
 	}
 }
 
+function isOpen(): boolean {
+	return _socket.readyState === WebSocket.OPEN;
+}
+
 const socket: SocketPlugin = {
-	on, off, emit
+	on, off, emit, isOpen
 };
 
 export {socket}

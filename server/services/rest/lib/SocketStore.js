@@ -32,24 +32,34 @@ function sendAdmins(location, type, ...payload) {
 }
 
 function registerDriver(driver) {
+	if(!locations[driver.location]){
+		driver.send('error:missing_data');
+		return;
+	}
+
 	locations[driver.location].driver.push(driver);
 
 	driver.connection.on('message', driver.handler);
 	driver.connection.on('close', () => {
-		sendAdmins('driver:removed');
+		sendAdmins(driver.location, 'driver:removed', driver.id);
 	});
 
-	sendAdmins('driver:registered');
+	sendAdmins(driver.location, 'driver:registered', driver.id);
 
-	console.log(`User with id ${connection._id} connected as driver`);
+	console.log(`User with id ${driver.id} connected as driver`);
 }
 
 function registerAdmin(admin) {
+	if(!locations[admin.location]){
+		admin.send('error:missing_data');
+		return;
+	}
+
 	locations[admin.location].admins.push(admin);
 
 	admin.connection.on('message', admin.handler);
 
-	console.log(`User with id ${connection._id} connected as admin`);
+	console.log(`User with id ${admin.id} connected as admin`);
 }
 
 function unregister(id, connections) {
