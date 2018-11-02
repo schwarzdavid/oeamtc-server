@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const driver = require('../../../../data/driver');
+const driver = require('../../../models/driver');
 
 router.route('/login')
 	.post((req, res) => {
-		if(!req.body.email){
+		if(!req.body.username){
 			return res.status(400).send('Bad Request');
 		}
 
-		const currDriver = driver.find(_driver => _driver.email === req.body.email);
+		const currDriver = driver.findByUsername(req.body.username);
 
 		if(!currDriver){
 			return res.status(404).send('Not Found');

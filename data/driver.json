@@ -1,8 +1,11 @@
 [
 	{
-		"id": "abcdefghijklmnopqrstuvwxyz",
-		"name": "St. Pölten Testdriver",
-		"email": "driver@oeamtc.at",
-		"location": "stp"
+		"username": "012345",
+		"servicecenter": {
+			"id": 1234,
+			"name": "Zentrale Erdberg"
+		},
+		"state": "READY",
+		"radionumber": 123456
 	}
 ]
