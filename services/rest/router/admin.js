@@ -11,6 +11,7 @@ router.route('/addMission')
 		}
 
 		_driver.addMission(req.body.mission);
+		res.send('OK');
 	});
 
 module.exports = router;
