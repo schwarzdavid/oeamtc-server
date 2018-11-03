@@ -20,7 +20,7 @@ function run(httpServer) {
 				const data = JSON.parse(message.utf8Data);
 
 				if(data.type === 'register'){
-					return driver.registerConnection(payload.username, connection);
+					return driver.registerConnection(data.payload.username, connection);
 				}
 			}
 		});

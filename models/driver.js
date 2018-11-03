@@ -16,6 +16,17 @@ function registerConnection(username, connection) {
 	driver.registerConnection(connection);
 }
 
+function getMissionsOfUser(username) {
+	const driver = findByUsername(username);
+
+	if(!driver){
+		console.log(`Driver with username ${username} doesn't exist.`);
+		return [];
+	}
+
+	return driver.missions;
+}
+
 (function init() {
 	const initDriver = require('../data/driver');
 
@@ -26,5 +37,6 @@ function registerConnection(username, connection) {
 
 module.exports = {
 	findByUsername,
-	registerConnection
+	registerConnection,
+	getMissionsOfUser
 };
