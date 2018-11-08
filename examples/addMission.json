@@ -1,0 +1,25 @@
+{
+	"username": "012345",
+	"mission": {
+		"id": 1,
+		"car": "Citroen C4",
+		"type": "PH",
+		"customer": {
+			"name": "Max Mustermann",
+			"type": "Club",
+			"tel": "06646133101",
+			"address": {
+				"street": "Herzogenburger Str. 34/1/9",
+				"city": "St. Pölten",
+				"code": "3100"
+			}
+		},
+		"address": {
+			"street": "Baumgasse 129",
+			"city": "Wien",
+			"code": "1030"
+		},
+		"defect": "mm-Drehzahl-/Positionssensor",
+		"expectedTime": "+45min"
+	}
+}
