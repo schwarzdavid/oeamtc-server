@@ -10,6 +10,8 @@ router.route('/addMission')
 			return res.status(404).send('Not Found');
 		}
 
+		req.body.mission.callTime = new Date().toTimeString().substr(0, 5);
+
 		_driver.addMission(req.body.mission);
 		res.send('OK');
 	});
