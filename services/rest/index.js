@@ -7,6 +7,7 @@ const socket = require('./socket');
 const admin = require('./router/admin');
 const auth = require('./router/auth');
 const missions = require('./router/missions');
+const utilities = require('./router/utilities');
 const cors = require('cors');
 
 const app = express();
@@ -23,6 +24,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use('/admin', admin);
 app.use('/auth', auth);
 app.use('/missions', missions);
+app.use('/utility', utilities);
 
 
 server.listen(config.rest, err => {

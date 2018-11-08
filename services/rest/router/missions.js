@@ -4,13 +4,56 @@ const driver = require('../../../models/driver');
 
 router.route('/')
 	.get((req, res) => {
-		if (!req.headers.authorization) {
+		const authorization = req.get('Authorization');
+		if (!authorization) {
 			return res.status(403).send('Forbidden');
 		}
 
-		const missions = driver.getMissionsOfUser(req.headers.authorization);
+		const missions = driver.getMissionsOfUser(authorization);
 
 		return res.json(missions);
+	});
+
+router.route('/assign')
+	.post((req, res) => {
+		const authorization = req.get('Authorization');
+		if(!authorization){
+			return res.status(403).send('Forbidden');
+		}
+
+		const currDriver = driver.findByUsername(authorization);
+
+		if(!currDriver){
+			return res.status(404).send('Not Found');
+		}
+
+		if(currDriver.missions.length === 0){
+			return res.status(400).send('Bad Request');
+		}
+
+		const assignedMission = currDriver.assignMission(req.get('if-match'));
+
+		return res.json(assignedMission);
+	});
+
+router.route('/next')
+	.get((req, res) => {
+		const authorization = req.get('Authorization');
+		if(!authorization){
+			return res.status(403).send('Forbidden');
+		}
+
+		const currDriver = driver.findByUsername(authorization);
+
+		if(!currDriver){
+			return res.status(404).send('Not Found');
+		}
+
+		if(currDriver.missions.length === 0){
+			return res.status(400).send('Bad Request');
+		}
+
+		return res.json(currDriver.missions[0]);
 	});
 
 module.exports = router;

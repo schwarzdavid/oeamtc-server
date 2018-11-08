@@ -5,21 +5,6 @@
 			"id": 1234,
 			"name": "Zentrale Erdberg"
 		},
-		"state": "READY",
-		"radionumber": 123456,
-		"missions": [
-			{
-				"id": 1,
-				"at": "W",
-				"place": "Wien Landstraße Baumgasse 12",
-				"car": "VW Touran"
-			},
-			{
-				"id": 2,
-				"at": "W",
-				"place": "Wien Landstraße Baumgasse 12",
-				"car": "BMW 3er"
-			}
-		]
+		"radionumber": 123456
 	}
 ]

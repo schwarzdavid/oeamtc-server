@@ -14,9 +14,9 @@ router.route('/login')
 			return res.status(404).send('Not Found');
 		}
 
-		console.log(currDriver);
+		const output = currDriver.toJSON();
 
-		return res.json(currDriver);
+		return res.json(output);
 	});
 
 module.exports = router;
