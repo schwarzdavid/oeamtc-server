@@ -17,17 +17,17 @@ router.route('/')
 router.route('/assign')
 	.post((req, res) => {
 		const authorization = req.get('Authorization');
-		if(!authorization){
+		if (!authorization) {
 			return res.status(403).send('Forbidden');
 		}
 
 		const currDriver = driver.findByUsername(authorization);
 
-		if(!currDriver){
+		if (!currDriver) {
 			return res.status(404).send('Not Found');
 		}
 
-		if(currDriver.missions.length === 0){
+		if (currDriver.missions.length === 0) {
 			return res.status(400).send('Bad Request');
 		}
 
@@ -36,20 +36,42 @@ router.route('/assign')
 		return res.json(assignedMission);
 	});
 
-router.route('/next')
-	.get((req, res) => {
+router.route('/arrived')
+	.post((req, res) => {
 		const authorization = req.get('Authorization');
-		if(!authorization){
+		if (!authorization) {
 			return res.status(403).send('Forbidden');
 		}
 
 		const currDriver = driver.findByUsername(authorization);
 
-		if(!currDriver){
+		if (!currDriver) {
 			return res.status(404).send('Not Found');
 		}
 
-		if(currDriver.missions.length === 0){
+		if (!currDriver.assignedMission) {
+			return res.status(400).send('Bad Request');
+		}
+
+		currDriver.destinationArrived(req.get('if-match'));
+
+		return res.send('OK');
+	});
+
+router.route('/next')
+	.get((req, res) => {
+		const authorization = req.get('Authorization');
+		if (!authorization) {
+			return res.status(403).send('Forbidden');
+		}
+
+		const currDriver = driver.findByUsername(authorization);
+
+		if (!currDriver) {
+			return res.status(404).send('Not Found');
+		}
+
+		if (currDriver.missions.length === 0) {
 			return res.status(400).send('Bad Request');
 		}
 
